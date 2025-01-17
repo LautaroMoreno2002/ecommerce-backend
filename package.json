@@ -1,0 +1,32 @@
+{
+  "name": "backend-ecommerce",
+  "version": "1.0.0",
+  "description": "Parte Backend para el proyecto ecommerce donde se creará una API para acceder a los datos de los productos y a futuro, usar autenticación",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LautaroMoreno2002/ecommerce-backend.git"
+  },
+  "keywords": [
+    "Backend",
+    "Ecommerce"
+  ],
+  "author": "Lautaro E. Moreno",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LautaroMoreno2002/ecommerce-backend/issues"
+  },
+  "homepage": "https://github.com/LautaroMoreno2002/ecommerce-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
