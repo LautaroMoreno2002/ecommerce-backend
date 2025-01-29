@@ -3,12 +3,11 @@ const { config } = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-config(); // Deja disponibles las variables de entorno
+config();
 
 const app = express();
-app.use(bodyParser.json()); // Parsea los bodies a formato JSON
-
-app.use('/', (req, res) => res.send("HOLAA"))
+app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Escuchando..."))
+
+app.listen(PORT, () => console.log('Escuchando...'))
