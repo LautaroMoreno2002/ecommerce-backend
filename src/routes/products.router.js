@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const Product = require('../models/product.model');
-const getProduct = require('../middlewares/getProduct');
+import { Router } from 'express';
+const router = Router();
+import Product, { find, deleteMany } from '../models/product.model';
+import getProduct from '../middlewares/getProduct';
 
 const appendProduct = (product, res) => {
   const { brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors } = product;
@@ -18,7 +18,7 @@ const appendProduct = (product, res) => {
 // Retorna todos los productos
 router.get('/', async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await find();
     if (products.length === 0) 
       res.status(201).json({ message: 'No hay productos cargados', products });
     else 
@@ -112,7 +112,7 @@ router.post('/', (req, res) => {
 // Elimina todo de forma global
 router.delete('/', async (req, res) => {
   try {
-    await Product.deleteMany({});
+    await deleteMany({});
     res.json({ message: 'Productos eliminados correctamente.' });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -185,4 +185,4 @@ router.patch('/:id', getProduct, async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-module.exports = router;
+export default router;

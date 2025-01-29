@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 // Inicializo el Schema
-const productSchema = new mongoose.Schema({
+const productSchema = new Schema({
   "brand": String,
   "model": String,
   "release_year": Number,
@@ -34,4 +34,4 @@ const productSchema = new mongoose.Schema({
   "colors": [String]
 })
 
-module.exports = mongoose.model('Product', productSchema);
+export default model('Product', productSchema);

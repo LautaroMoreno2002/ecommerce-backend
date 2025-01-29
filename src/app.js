@@ -1,15 +1,15 @@
-const express = require('express');
-const { config } = require('dotenv');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+import express from 'express';
+import { config } from 'dotenv';
+import { connect, connection } from 'mongoose';
+import { json } from 'body-parser';
 
 config();
 
 const app = express();
-app.use(bodyParser.json());
+app.use(json());
 
-mongoose.connect(process.env.MONGO_URL, { dbName: process.env.MONGO_DB_NAME })
-const db = mongoose.connection;
+connect(process.env.MONGO_URL, { dbName: process.env.MONGO_DB_NAME })
+const db = connection;
 
 app.use('/products', require('./routes/products.router'));
 
