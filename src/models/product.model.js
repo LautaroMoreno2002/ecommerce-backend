@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema({
     "nfc": String,
     "usb_type": String
   },
-  "colors": []
+  "colors": [String]
 })
 
 module.exports = mongoose.model('Product', productSchema);

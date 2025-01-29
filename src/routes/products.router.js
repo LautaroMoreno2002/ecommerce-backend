@@ -118,4 +118,14 @@ router.delete('/:id', getProduct, async (req, res) => {
   }
 });
 
+// Elimina todo de forma global
+router.delete('/', async (req, res) => {
+  try {
+    await Product.deleteMany({});
+    res.json({ message: 'Productos eliminados' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
+
 module.exports = router;
