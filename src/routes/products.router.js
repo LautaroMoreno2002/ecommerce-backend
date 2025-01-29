@@ -1,6 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/product.model');
+const getProduct = require('../middlewares/getProduct');
+
+const appendProduct = (product, res) => {
+  const { brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors } = product;
+
+  if (!brand || !model || !release_year || !price || !osname || !osversion || !dimensions || !weight || !specifications || !connectivity || !colors) {
+    return res.status(400).json({ message: 'Los campos deben estar completos.' });
+  }
+  const newProduct = new Product({
+    brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors
+  });
+  newProduct.save();
+}
 
 router.get('/', async (req, res) => {
   try {
@@ -9,8 +22,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-router.get('/:id', );
 
 // router.post('/', (req, res) => {
 //   console.log(req.body);
@@ -75,18 +86,6 @@ router.get('/:id', );
 //   }
 // )
 
-const appendProduct = (product, res) => {
-  const { brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors } = product;
-
-  if (!brand || !model || !release_year || !price || !osname || !osversion || !dimensions || !weight || !specifications || !connectivity || !colors) {
-    return res.status(400).json({ message: 'Los campos deben estar completos.' });
-  }
-  const newProduct = new Product({
-    brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors
-  });
-  newProduct.save();
-}
-
 router.post('/', (req, res) => {
   const { products } = req.body;
   if (!products) {
@@ -102,9 +101,21 @@ router.post('/', (req, res) => {
     res.status(400).json({ message: error.message });
   }
 }
-}
-)
+});
 
-router.delete('/:id', );
+router.get('/:id', getProduct, async (req, res) => {
+  res.json(res.product)
+});
+
+router.delete('/:id', getProduct, async (req, res) => {
+  try {
+    await res.product.deleteOne({
+      _id: res.product._id
+    })
+    res.json({ message: 'Producto eliminado' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 module.exports = router;
