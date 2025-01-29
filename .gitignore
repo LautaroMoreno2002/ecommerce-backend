@@ -1,7 +1,7 @@
 # Node
-/node_modules/
+/node_modules
 .env
-/mongo/
+/mongo
 
 # Visual Studio Code
 .vscode/*
