@@ -6,37 +6,29 @@ const productSchema = new mongoose.Schema({
   "model": String,
   "release_year": Number,
   "price": Number,
-  "os": {
-    "name": String,
-    "version": String
-  },
-  "dimensions": "151.7 x 71.2 x 7.9 mm",
+  "osname": String,
+  "osversion": String,
+  "dimensions": String,
   "weight": Number,
   "specifications": {
-    "screen": {
-      "size": Number,
-      "resolution": String,
-      "type": String
-    },
+    "sizeScreen": String,
+    "resolutionScreen": String,
+    "typeScreen": String,
     "processor": String,
     "ram": Number,
     "internal_storage": Number,
-    "expandable_storage": Boolean,
-    "camera": {
-      "main": String,
-      "front": String
-    },
-    "battery": {
-      "capacity": Number,
-      "fast_charging": Boolean,
-      "wireless_charging": Boolean
-    }
+    "expandable_storage": String,
+      "cameraMain": String,
+      "cameraFront": String,
+      "batteryCapacity": Number,
+      "fast_charging": String,
+      "wireless_charging": String
   },
   "connectivity": {
     "network_support": String,
     "wifi": String,
     "bluetooth": String,
-    "nfc": Boolean,
+    "nfc": String,
     "usb_type": String
   },
   "colors": []
