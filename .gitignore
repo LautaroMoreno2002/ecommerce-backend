@@ -3,6 +3,9 @@
 .env
 /mongo
 
+# Prueba
+datosPrueba.json
+
 # Visual Studio Code
 .vscode/*
 !.vscode/settings.json

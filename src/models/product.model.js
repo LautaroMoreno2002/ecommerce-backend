@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose');
 
 // Inicializo el Schema
-const productSchema = new Schema({
+const productSchema = new mongoose.Schema({
   "brand": String,
   "model": String,
   "release_year": Number,
@@ -31,7 +31,8 @@ const productSchema = new Schema({
     "nfc": String,
     "usb_type": String
   },
-  "colors": [String]
+  "colors": [String],
+  "imgSrc": [String]
 })
 
-export default model('Product', productSchema);
+module.exports = mongoose.model('Product', productSchema);

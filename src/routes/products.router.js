@@ -1,16 +1,16 @@
-import { Router } from 'express';
-const router = Router();
-import Product, { find, deleteMany } from '../models/product.model';
-import getProduct from '../middlewares/getProduct';
+const express = require('express');
+const router = express.Router();
+const Product = require('../models/product.model');
+const getProduct = require('../middlewares/getProduct');
 
 const appendProduct = (product, res) => {
-  const { brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors } = product;
+  const { brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors, imgSrc } = product;
 
-  if (!brand || !model || !release_year || !price || !osname || !osversion || !dimensions || !weight || !specifications || !connectivity || !colors) {
+  if (!brand || !model || !release_year || !price || !osname || !osversion || !dimensions || !weight || !specifications || !connectivity || !colors || !imgSrc) {
     return res.status(400).json({ message: 'Los campos deben estar completos.' });
   }
   const newProduct = new Product({
-    brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors
+    brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors, imgSrc
   });
   newProduct.save();
 }
@@ -18,7 +18,7 @@ const appendProduct = (product, res) => {
 // Retorna todos los productos
 router.get('/', async (req, res) => {
   try {
-    const products = await find();
+    const products = await Product.find();
     if (products.length === 0) 
       res.status(201).json({ message: 'No hay productos cargados', products });
     else 
@@ -112,7 +112,7 @@ router.post('/', (req, res) => {
 // Elimina todo de forma global
 router.delete('/', async (req, res) => {
   try {
-    await deleteMany({});
+    await Product.deleteMany({});
     res.json({ message: 'Productos eliminados correctamente.' });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -138,8 +138,8 @@ router.delete('/:id', getProduct, async (req, res) => {
 
 // Actualiza un producto por completo
 router.put('/:id', getProduct, async (req, res) => {
-  const { brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors } = req.body;
-  if (!brand || !model || !release_year || !price || !osname || !osversion || !dimensions || !weight || !specifications || !connectivity || !colors) {
+  const { brand, model, release_year, price, osname, osversion, dimensions, weight, specifications, connectivity, colors, imgSrc } = req.body;
+  if (!brand || !model || !release_year || !price || !osname || !osversion || !dimensions || !weight || !specifications || !connectivity || !colors || !imgSrc) {
     return res.status(400).json({ message: 'Debe enviar todos los campos para actualizar.' });
   }
   res.product.brand = brand || res.product.brand;
@@ -185,4 +185,4 @@ router.patch('/:id', getProduct, async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-export default router;
+module.exports = router;

@@ -1,4 +1,4 @@
-import { findById } from "../models/product.model";
+const productModel = require("../models/product.model");
 
 const getProduct = async (req, res, next) => {
   let product;
@@ -7,7 +7,7 @@ const getProduct = async (req, res, next) => {
     return res.status(400).json({ message: 'El id no es válido.' });
   }
   try {
-    product = await findById(id);
+    product = await productModel.findById(id);
     if (!id) 
       return res.status(404).json({ message: 'Producto no encontrado.' });
   } catch (error) {
@@ -17,4 +17,4 @@ const getProduct = async (req, res, next) => {
   next();
 }
 
-export default getProduct;
+module.exports = getProduct;
